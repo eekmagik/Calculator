@@ -97,7 +97,11 @@ const multiplyButton = document.querySelector('#multiply');
 const divideButton = document.querySelector('#divide');
 
 const clearButton = document.querySelector('#clear');
-
+clearButton.addEventListener("click", () => {
+  // clickIndicator();
+  initialValue = "";
+  toDisplay('');
+});
 //const button = document.querySelector(${})
 
 
