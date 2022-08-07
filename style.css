@@ -32,8 +32,10 @@ body {
 }
 
 .input-current {
-  padding: 20px;
+  padding: 27px;
+  height: 37px;
   text-align: right;
+  background-color: black;
 }
 
 .history {
@@ -45,15 +47,13 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 20px;
-}
-
-.result {
-
+  
 }
 
 .buttons {
  display: flex;
  flex-direction: column;
+ margin-top: 10px;
   
 }
 
