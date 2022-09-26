@@ -26,14 +26,20 @@ const displayValue = document.createElement('div');
 let initialValue = "";
 
 const toDisplay = function(number) {
+  if (initialValue.length === 18) {
+    return;
+  }
+
   if (number === "." && initialValue.includes(number)) {
     return;
   }
-  if (initialValue === "."){
+
+  if (initialValue === ".") {
     displayValue.textContent = "0." + number;
     inputCurrent.appendChild(displayValue);
   return initialValue = displayValue.textContent; 
   }
+  
   displayValue.textContent = initialValue + number;
   inputCurrent.appendChild(displayValue);
   return initialValue = displayValue.textContent; 
@@ -97,6 +103,7 @@ decimalButton.addEventListener("click", () => {
   // clickIndicator();
   toDisplay('.');
 });
+
 const equalsButton = document.querySelector('#equals');
 const addButton = document.querySelector('#add');
 const subtractButton = document.querySelector('#subtract');
