@@ -29,6 +29,11 @@ const toDisplay = function(number) {
   if (number === "." && initialValue.includes(number)) {
     return;
   }
+  if (initialValue === "."){
+    displayValue.textContent = "0." + number;
+    inputCurrent.appendChild(displayValue);
+  return initialValue = displayValue.textContent; 
+  }
   displayValue.textContent = initialValue + number;
   inputCurrent.appendChild(displayValue);
   return initialValue = displayValue.textContent; 
