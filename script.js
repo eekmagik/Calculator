@@ -26,7 +26,9 @@ const displayValue = document.createElement('div');
 let initialValue = "";
 
 const toDisplay = function(number) {
-  
+  if (number === "." && initialValue.includes(number)) {
+    return;
+  }
   displayValue.textContent = initialValue + number;
   inputCurrent.appendChild(displayValue);
   return initialValue = displayValue.textContent; 
