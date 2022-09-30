@@ -26,6 +26,10 @@ const displayValue = document.createElement('div');
 let initialValue = "";
 
 const toDisplay = function(number) {
+  if (initialValue === "0" && number != ".") {
+    displayValue.textContent = number;
+    return initialValue = displayValue.textContent; 
+  }
   if (initialValue.length === 18) {
     return;
   }
