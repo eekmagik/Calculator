@@ -16,37 +16,54 @@ const divide = function(a,b) {
   return (a/b);
 };
 
-const operate = function(operator,a,b) {
-  alert(operator(a,b));
+const operate = function(operation,a,b) {
+  return (operation(a,b));
 };
 
 
 const inputCurrent = document.querySelector('.input-current');
 const displayValue = document.createElement('div');
-let initialValue = "";
+let operator = "";
+let operand1 = "";
+let operand2 = "";
+
+const setOperator = function(variable) {
+  if (operand1 === "") {
+    return;
+  };
+  if (operator === "") {
+    return operator = variable;
+  };
+  if ((operator.length > 0) && operand1 != "") {
+    return operator = variable;
+  };
+  if ((operator.length > 0) && operand2 != "") {
+    toDisplay(operate(variable,operand1, operand2));
+};
 
 const toDisplay = function(number) {
-  if (initialValue === "0" && number != ".") {
+  if (operand1 === "" && number != ".") {
     displayValue.textContent = number;
-    return initialValue = displayValue.textContent; 
+    inputCurrent.appendChild(displayValue);
+    return operand1 = displayValue.textContent; 
   }
-  if (initialValue.length === 18) {
+  if (operand1.length === 18) {
     return;
   }
 
-  if (number === "." && initialValue.includes(number)) {
+  if (number === "." && operand1.includes(number)) {
     return;
   }
 
-  if (initialValue === ".") {
+  if (operand1 === ".") {
     displayValue.textContent = "0." + number;
     inputCurrent.appendChild(displayValue);
-  return initialValue = displayValue.textContent; 
+  return operand1 = displayValue.textContent; 
   }
   
-  displayValue.textContent = initialValue + number;
+  displayValue.textContent = operand1 + number;
   inputCurrent.appendChild(displayValue);
-  return initialValue = displayValue.textContent; 
+  return operand1 = displayValue.textContent; 
   
 };
 
@@ -109,15 +126,38 @@ decimalButton.addEventListener("click", () => {
 });
 
 const equalsButton = document.querySelector('#equals');
+equalsButton.addEventListener("click", () => {
+  // clickIndicator();
+  
+});
 const addButton = document.querySelector('#add');
+addButton.addEventListener("click", () => {
+  // clickIndicator();
+  setOperator('add');
+});
+
 const subtractButton = document.querySelector('#subtract');
+subtractButton.addEventListener("click", () => {
+  // clickIndicator();
+  setOperator('subtract');
+});
+
 const multiplyButton = document.querySelector('#multiply');
+multiplyButton.addEventListener("click", () => {
+  // clickIndicator();
+  setOperator('multiply');
+});
+
 const divideButton = document.querySelector('#divide');
+divideButton.addEventListener("click", () => {
+  // clickIndicator();
+  setOperator('divide');
+});
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener("click", () => {
   // clickIndicator();
-  initialValue = "";
+  operand1 = "";
   toDisplay('');
 });
 //const button = document.querySelector(${})
