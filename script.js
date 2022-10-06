@@ -16,38 +16,37 @@ const divide = function(a,b) {
   return (a/b);
 };
 
-const operate = function(operation,a,b) {
-  alert(operation(a,b));
+const operate = function(operator,a,b) {
+  alert(operator(a,b));
 };
 
 
 const inputCurrent = document.querySelector('.input-current');
 const displayValue = document.createElement('div');
-let operator = "";
-let operand1 = "0";
+let initialValue = "";
 
 const toDisplay = function(number) {
-  if (operand1 === "0" && number != ".") {
+  if (initialValue === "0" && number != ".") {
     displayValue.textContent = number;
-    return operand1 = displayValue.textContent; 
+    return initialValue = displayValue.textContent; 
   }
-  if (operand1.length === 18) {
+  if (initialValue.length === 18) {
     return;
   }
 
-  if (number === "." && operand1.includes(number)) {
+  if (number === "." && initialValue.includes(number)) {
     return;
   }
 
-  if (operand1 === ".") {
+  if (initialValue === ".") {
     displayValue.textContent = "0." + number;
     inputCurrent.appendChild(displayValue);
-  return operand1 = displayValue.textContent; 
+  return initialValue = displayValue.textContent; 
   }
   
-  displayValue.textContent = operand1 + number;
+  displayValue.textContent = initialValue + number;
   inputCurrent.appendChild(displayValue);
-  return operand1 = displayValue.textContent; 
+  return initialValue = displayValue.textContent; 
   
 };
 
@@ -118,7 +117,7 @@ const divideButton = document.querySelector('#divide');
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener("click", () => {
   // clickIndicator();
-  operand1 = "";
+  initialValue = "";
   toDisplay('');
 });
 //const button = document.querySelector(${})
