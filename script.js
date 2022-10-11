@@ -24,21 +24,30 @@ const displayValue = document.createElement('div');
 
 const operate = function(a,b) {
   operand = "";
+  
   result = operator(a,b);
   toDisplay(result)
   histOperand1 = operand1;
   histoperand2 = operand2;
   operand1 = result;
-  return result;
+  lastpress = "operate";
 };
 
+let operator = null;
 let operand = "";
 let operand1 = NaN;
 let operand2 = NaN;
 let result = NaN;
+let lastpress = "";
 
 const numbers = function(number){
-  
+  if (lastpress === "operate") {
+    operand1 = NaN;
+    operand2 = NaN;
+    operator = null;
+    result = NaN;
+    lastpress = "numbers";
+  }
   if (operand === "") {
     toDisplay(number);
     return (operand = number);
@@ -51,6 +60,7 @@ const numbers = function(number){
   operand = operand + number;
   toDisplay(operand);
   return operand;
+  lastpress = "numbers";
 };
 
 const setOperand = function(number) {
@@ -68,21 +78,25 @@ const setOperand = function(number) {
 
   operand1 = parseInt(number);
   operand = "";
+  lastpress = "operand";
   
 };
 
 const setOperator = function(variable) {
-  if (typeof operator != 'function') {
+  if (typeof operator != 'function' || operator === null) {
     operator = variable;
     setOperand(operand);
     operand = "";
+    lastpress= "setOperator";
     
   };
   if ((typeof operator === 'function') && (isNaN(operand1) === false)) {
     operator = variable;
+    lastpress= "setOperator";
   };
   if ((typeof operator === 'function') && (operand != "")) {
     result = operate();
+    lastpress= "setOperator";
   };
 };
 
