@@ -27,8 +27,6 @@ const operate = function(a,b) {
   
   result = operator(a,b);
   toDisplay(result)
-  histOperand1 = operand1;
-  histoperand2 = operand2;
   operand1 = result;
   lastpress = "operate";
 };
@@ -50,6 +48,7 @@ const numbers = function(number){
   }
   if (operand === "") {
     toDisplay(number);
+    lastpress = "numbers";
     return (operand = number);
   };
 
@@ -58,9 +57,10 @@ const numbers = function(number){
   };
   
   operand = operand + number;
+  lastpress = "numbers";
   toDisplay(operand);
   return operand;
-  lastpress = "numbers";
+  
 };
 
 const setOperand = function(number) {
@@ -69,10 +69,7 @@ const setOperand = function(number) {
   }
   if (isNaN(operand1) === false){
     operand2 = parseInt(number);
-    return;
-  };
-  
-  if ((isNaN(operand1) === false) && (isNaN(operand2) === false)){
+    lastpress = "operand2";
     return;
   };
 
@@ -83,21 +80,24 @@ const setOperand = function(number) {
 };
 
 const setOperator = function(variable) {
+  if ((lastpress === "numbers") && (operator != null)) {
+    lastpress= "setOperator";
+    setOperand(operand);
+    result = operate(operand1,operand2);
+    operator = variable;
+  }
   if (typeof operator != 'function' || operator === null) {
     operator = variable;
     setOperand(operand);
     operand = "";
-    lastpress= "setOperator";
+    lastpress = "setOperator";
     
   };
-  if ((typeof operator === 'function') && (isNaN(operand1) === false)) {
+  if ((typeof operator === 'function') && (lastpress != "operand2")) {
     operator = variable;
-    lastpress= "setOperator";
+    lastpress = "setOperator";
   };
-  if ((typeof operator === 'function') && (operand != "")) {
-    result = operate();
-    lastpress= "setOperator";
-  };
+  
 };
 
 const toDisplay = function(number) {
