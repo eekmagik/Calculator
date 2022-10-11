@@ -54,11 +54,18 @@ const numbers = function(number){
 };
 
 const setOperand = function(number) {
+  if (operand === ""){
+    return;
+  }
   if (isNaN(operand1) === false){
     operand2 = parseInt(number);
     return;
   };
   
+  if ((isNaN(operand1) === false) && (isNaN(operand2) === false)){
+    return;
+  };
+
   operand1 = parseInt(number);
   operand = "";
   
@@ -69,7 +76,7 @@ const setOperator = function(variable) {
     operator = variable;
     setOperand(operand);
     operand = "";
-    toDisplay('');
+    
   };
   if ((typeof operator === 'function') && (isNaN(operand1) === false)) {
     operator = variable;
@@ -146,7 +153,7 @@ nineButton.addEventListener("click", () => {
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener("click", () => {
   // clickIndicator();
-  operand2 = parseInt(operand);
+  setOperand(operand);
   operate(operand1,operand2);
 });
 
@@ -178,7 +185,9 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener("click", () => {
   // clickIndicator();
   operand = "";
-  operator = NaN;
+  operand1 = NaN;
+  operand2 = NaN;
+  operator = null;
   result = NaN;
   toDisplay('');
 });
