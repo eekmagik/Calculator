@@ -80,6 +80,7 @@ body {
   padding: 20px;
   margin: 9px;
   text-align: center;
+  cursor: pointer;
 }
 
 #clear {
