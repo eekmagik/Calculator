@@ -39,6 +39,15 @@ let result = NaN;
 let lastpress = "";
 
 const numbers = function(number){
+  if (number === "." && operand.includes(".")) {
+    return;
+  }
+  if ((number === ".") && (operand === "")) {
+    toDisplay("0" + number);
+    lastpress = "numbers";
+    operand = ("0" + number);
+    return;
+  }
   if (lastpress === "operate") {
     operand1 = NaN;
     operand2 = NaN;
@@ -64,6 +73,17 @@ const numbers = function(number){
 };
 
 const setOperand = function(number) {
+  if (operand.includes(".")){
+    if (isNaN(operand1) === false){
+      operand2 = parseFloat(number);
+      lastpress = "operand2";
+      return;
+    };
+  
+    operand1 = parseFloat(number);
+    operand = "";
+    lastpress = "operand";
+  }
   if (operand === ""){
     return;
   }
@@ -157,10 +177,11 @@ nineButton.addEventListener("click", () => {
   // clickIndicator();
   numbers('9');
 });
-//const decimalButton = document.querySelector('#decimal');
-//decimalButton.addEventListener("click", () => {
-  // clickIndicator();
-//});
+const decimalButton = document.querySelector('#decimal');
+decimalButton.addEventListener("click", () => {
+  //clickIndicator();
+  numbers('.');
+});
 
 //operator buttons
 
