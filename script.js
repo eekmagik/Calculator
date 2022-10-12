@@ -14,9 +14,6 @@ const multiply = function(a,b) {
  
 };
 
-const fool = "see: divide by 0";
-const URL =  "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-
 const divide = function(a,b) {
   if (b === 0){
     return "No. No you may not.";
@@ -25,8 +22,22 @@ const divide = function(a,b) {
   
 };
 
+const inputHistory = document.querySelector('.input-history');
 const inputCurrent = document.querySelector('.input-current');
 const displayValue = document.createElement('div');
+const histValue = document.createElement('div');
+
+
+const toDisplay = function(number) {
+  displayValue.textContent = number;
+  inputCurrent.appendChild(displayValue);
+};
+
+const toHistory = function(calculation) {
+  histValue.textContent = calculation;
+  inputHistory.appendChild(histValue);
+};
+
 
 const operate = function(a,b) {
   
@@ -43,7 +54,8 @@ const operate = function(a,b) {
   operand = "";
   
   result = operator(a,b);
-  toDisplay(result)
+  toDisplay(result);
+  toHistory(operand1 + " " + operatorChar + " " + operand2 + " = " + result)
   operand1 = result;
   lastpress = "operate";
 };
@@ -54,6 +66,7 @@ let operand1 = NaN;
 let operand2 = NaN;
 let result = NaN;
 let lastpress = "";
+let operatorChar = "";
 
 const numbers = function(number){
   if (number === "backspace") {
@@ -105,11 +118,14 @@ const setOperand = function(number) {
   if (operand.includes(".")){
     if (isNaN(operand1) === false){
       operand2 = parseFloat(number);
+      toHistory(operand1 + " " + operatorChar + " " + operand2);
+      toDisplay("");
       lastpress = "operand2";
       return;
     };
   
     operand1 = parseFloat(number);
+    toHistory(operand1 + " " + operatorChar);
     operand = "";
     lastpress = "operand";
   }
@@ -118,11 +134,15 @@ const setOperand = function(number) {
   }
   if (isNaN(operand1) === false){
     operand2 = parseInt(number);
+    toHistory(operand1 + " " + operatorChar + " " + operand2);
+    toDisplay("");
     lastpress = "operand2";
     return;
   };
 
   operand1 = parseInt(number);
+  toHistory(operand1 + " " + operatorChar);
+  toDisplay("");
   operand = "";
   lastpress = "operand";
   
@@ -144,66 +164,64 @@ const setOperator = function(variable) {
   };
   if ((typeof operator === 'function') && (lastpress != "operand2")) {
     operator = variable;
+    toHistory(operand1 + " " + operatorChar)
+    toDisplay("");
     lastpress = "setOperator";
   };
   
 };
 
-const toDisplay = function(number) {
-    displayValue.textContent = number
-    inputCurrent.appendChild(displayValue)
-};
 
 //number buttons
 
 const zeroButton = document.querySelector('#zero');
 zeroButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('0');
 });
 const oneButton = document.querySelector('#one');
 oneButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('1');
 });
 const twoButton = document.querySelector('#two');
 twoButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('2');
 });
 const threeButton = document.querySelector('#three');
 threeButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('3');
 });
 const fourButton = document.querySelector('#four');
 fourButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('4');
 });
 const fiveButton = document.querySelector('#five');
 fiveButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('5');
 });
 const sixButton = document.querySelector('#six');
 sixButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('6');
 });
 const sevenButton = document.querySelector('#seven');
 sevenButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('7');
 });
 const eightButton = document.querySelector('#eight');
 eightButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('8');
 });
 const nineButton = document.querySelector('#nine');
 nineButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('9');
 });
 const decimalButton = document.querySelector('#decimal');
@@ -214,7 +232,7 @@ decimalButton.addEventListener("click", () => {
 
 const backButton = document.querySelector('#backspace');
 backButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   numbers('backspace');
 });
 
@@ -222,44 +240,45 @@ backButton.addEventListener("click", () => {
 
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   setOperand(operand);
   operate(operand1,operand2);
 });
 
 const addButton = document.querySelector('#add');
 addButton.addEventListener("click", () => {
-  // clickIndicator();
+  operatorChar = "+";
   setOperator(add);
-});
+  });
 
 const subtractButton = document.querySelector('#subtract');
 subtractButton.addEventListener("click", () => {
-  // clickIndicator();
+  operatorChar = "-";
   setOperator(subtract);
 });
 
 const multiplyButton = document.querySelector('#multiply');
 multiplyButton.addEventListener("click", () => {
-  // clickIndicator();
+  operatorChar = "*";
   setOperator(multiply);
 });
 
 const divideButton = document.querySelector('#divide');
 divideButton.addEventListener("click", () => {
-  // clickIndicator();
+  operatorChar = "/";
   setOperator(divide);
 });
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener("click", () => {
-  // clickIndicator();
+  
   operand = "";
   operand1 = NaN;
   operand2 = NaN;
   operator = null;
   result = NaN;
-  toDisplay('');
+  toDisplay("");
+  toHistory("");
 });
 
 document.addEventListener('keydown', (event) => {
@@ -271,15 +290,19 @@ document.addEventListener('keydown', (event) => {
       numbers(event.key);
     }
     if ((event.key) === '+'){
+      operatorChar = "+";
       setOperator(add);
     }
     if ((event.key) === '-'){
+      operatorChar = "-";
       setOperator(subtract);
     }
     if ((event.key) === '*'){
+      operatorChar = "*";
       setOperator(multiply);
     }
     if ((event.key) === '/'){
+      operatorChar = "/";
       setOperator(divide);
     }
     if (((event.key) === '=') || ((event.key) === 'Enter')){
