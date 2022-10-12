@@ -56,6 +56,12 @@ let result = NaN;
 let lastpress = "";
 
 const numbers = function(number){
+  if (number === "backspace") {
+    operand = operand.slice(0, -1)
+    toDisplay(operand);
+    lastpress = "numbers";
+    return;
+  }
   if (number === "." && operand.includes(".")) {
     return;
   }
@@ -206,6 +212,12 @@ decimalButton.addEventListener("click", () => {
   numbers('.');
 });
 
+const backButton = document.querySelector('#backspace');
+backButton.addEventListener("click", () => {
+  // clickIndicator();
+  numbers('backspace');
+});
+
 //operator buttons
 
 const equalsButton = document.querySelector('#equals');
@@ -270,10 +282,13 @@ document.addEventListener('keydown', (event) => {
     if ((event.key) === '/'){
       setOperator(divide);
     }
-    if ((event.key) === '='){
+    if (((event.key) === '=') || ((event.key) === 'Enter')){
       setOperand(operand);
     operate(operand1,operand2);
     }
+    if ((event.key) === 'Backspace'){
+      numbers('backspace');
+    };
 });
 
 
