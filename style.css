@@ -82,11 +82,15 @@ body {
 }
 
 #clear {
-  width: 75%;
+  width: 50%;
 }
 
 #clearbutton {
   text-align: left;
+  background-color: rgb(240, 96, 44);
+}
+
+#backbutton {
   background-color: rgb(240, 96, 44);
 }
 
