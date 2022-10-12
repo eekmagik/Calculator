@@ -82,6 +82,12 @@ const numbers = function(number){
     return;
   };
   
+  if((operand === "0") && (number != ".")){
+    operand = number
+    lastpress = "numbers";
+    toDisplay(operand);
+    return operand;
+  }
   operand = operand + number;
   lastpress = "numbers";
   toDisplay(operand);
@@ -243,7 +249,32 @@ clearButton.addEventListener("click", () => {
   result = NaN;
   toDisplay('');
 });
-//const button = document.querySelector(${})
+
+document.addEventListener('keydown', (event) => {
+    console.log(event);
+    if (((event.code).includes('Digit')) && (isNaN(event.key) === false)){
+      numbers(event.key);
+    };
+    if (event.key=== "."){
+      numbers(event.key);
+    }
+    if ((event.key) === '+'){
+      setOperator(add);
+    }
+    if ((event.key) === '-'){
+      setOperator(subtract);
+    }
+    if ((event.key) === '*'){
+      setOperator(multiply);
+    }
+    if ((event.key) === '/'){
+      setOperator(divide);
+    }
+    if ((event.key) === '='){
+      setOperand(operand);
+    operate(operand1,operand2);
+    }
+});
 
 
 
