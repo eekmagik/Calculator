@@ -14,7 +14,13 @@ const multiply = function(a,b) {
  
 };
 
+const fool = "see: divide by 0";
+const URL =  "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
 const divide = function(a,b) {
+  if (b === 0){
+    return "No. No you may not.";
+  }
   return (a/b);
   
 };
@@ -23,6 +29,17 @@ const inputCurrent = document.querySelector('.input-current');
 const displayValue = document.createElement('div');
 
 const operate = function(a,b) {
+  
+  if (typeof(operator) !== 'function'){
+    return;
+  }
+  if ((isNaN(operand) !== true) && (isNaN(operand2))) {
+    result = operand1;
+    toDisplay(result)
+    operand1 = result;
+    lastpress = "operate";
+    return;
+  }
   operand = "";
   
   result = operator(a,b);
